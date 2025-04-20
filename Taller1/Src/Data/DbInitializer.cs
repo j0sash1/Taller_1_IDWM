@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Taller1.Src.Models;
-
 using Bogus;
 
 using Microsoft.EntityFrameworkCore;
+
+using Taller1.Src.Models;
 
 namespace Taller1.Src.Data
 {
