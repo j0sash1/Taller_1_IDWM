@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using Taller1.Src.Models;
+
+using Taller1.Src.Data;
+
 namespace Taller1.Src.Controllers
 {
     [Route("[controller]")]
@@ -14,20 +18,19 @@ namespace Taller1.Src.Controllers
     {
         private readonly ILogger<ProductController> _logger;
 
-        public ProductController(ILogger<ProductController> logger)
+        private readonly StoreContext _context;
+
+        public ProductController(ILogger<ProductController> logger, StoreContext context)
         {
+            _context = context;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public ActionResult<List<Product>> GetAll()
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
+            var products = _context.Products.ToList();
+            return Ok(products);
         }
     }
 }
