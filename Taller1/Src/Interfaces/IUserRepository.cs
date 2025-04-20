@@ -7,6 +7,6 @@ namespace Taller1.Src.Interfaces
 {
     public interface IUserRepository
     {
-        
+
     }
 }
