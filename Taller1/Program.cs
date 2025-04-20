@@ -1,4 +1,9 @@
 using Serilog;
+
+using Microsoft.EntityFrameworkCore;
+
+using Taller1.Src.Data;
+
 Log.Logger = new LoggerConfiguration()
 
     .CreateLogger();
@@ -8,6 +13,8 @@ try
     Log.Information("starting server.");
     var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
+    builder.Services.AddDbContext<StoreContext> (options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
     builder.Host.UseSerilog((context, services, configuration) =>
     {
         configuration
@@ -18,6 +25,7 @@ try
     });
 
     var app = builder.Build();
+    DbInitializer.InitDb(app);
     app.MapControllers();
     app.Run();
 }
