@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using Taller1.Src.Models;
-
 using Taller1.Src.Data;
+using Taller1.Src.Models;
 
 namespace Taller1.Src.Controllers
 {
@@ -31,6 +30,12 @@ namespace Taller1.Src.Controllers
         {
             var products = _context.Products.ToList();
             return Ok(products);
+        }
+        [HttpGet("{id}")]
+        public ActionResult<Product> GetById(int id)
+        {
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            return product == null ? (ActionResult<Product>)NotFound() : (ActionResult<Product>)Ok(product);
         }
     }
 }
