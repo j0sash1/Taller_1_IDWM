@@ -18,12 +18,12 @@ namespace Taller1.Src.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-             modelBuilder.Entity<User>()
-             .HasOne(u => u.ShippingAddres)
-             .WithOne(sa => sa.User)
-             .HasForeignKey<ShippingAddres>(sa => sa.UserId)
-             .OnDelete(DeleteBehavior.Cascade);
-   
+            modelBuilder.Entity<User>()
+            .HasOne(u => u.ShippingAddres)
+            .WithOne(sa => sa.User)
+            .HasForeignKey<ShippingAddres>(sa => sa.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

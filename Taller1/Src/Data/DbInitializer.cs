@@ -63,7 +63,7 @@ namespace Taller1.Src.Data
                     Commune = faker.Address.City(),
                     Region = faker.Address.State(),
                     PostalCode = faker.Address.ZipCode(),
-                    User = user 
+                    User = user
                 };
                 user.ShippingAddres = shippingAddres;
             }
