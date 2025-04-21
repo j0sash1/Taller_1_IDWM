@@ -27,7 +27,7 @@ namespace Taller1.Src.Data
         {
             context.Database.Migrate();
 
-            if (context.Products.Any()) return;
+            if (context.Products.Any() || context.Users.Any()) return;
 
             var faker = new Faker("es");
 
@@ -46,6 +46,29 @@ namespace Taller1.Src.Data
                 })
                 .Generate(10);
 
+            var users = new Faker<User>()
+                .RuleFor(u => u.FirstName, f => f.Person.FirstName)
+                .RuleFor(u => u.Email, f => f.Internet.Email())
+                .RuleFor(u => u.Password, f => f.Internet.Password())
+                .RuleFor(u => u.LastName, f => f.Person.LastName)
+                .RuleFor(u => u.Thelephone, f => f.Phone.PhoneNumber())
+                .Generate(10);
+
+            foreach (var user in users)
+            {
+                var shippingAddres = new ShippingAddres
+                {
+                    Street = faker.Address.StreetName(),
+                    Number = faker.Address.BuildingNumber(),
+                    Commune = faker.Address.City(),
+                    Region = faker.Address.State(),
+                    PostalCode = faker.Address.ZipCode(),
+                    User = user 
+                };
+                user.ShippingAddres = shippingAddres;
+            }
+
+            context.Set<User>().AddRange(users);
             context.Set<Product>().AddRange(products);
             context.SaveChanges();
         }
