@@ -19,7 +19,7 @@ namespace Taller1.Src.Data
 
             var context = scope.ServiceProvider.GetRequiredService<StoreContext>()
                 ?? throw new InvalidOperationException("Could not get StoreContext");
-context.Database.Migrate();
+            context.Database.Migrate();
             SeedUsers(context);
             SeedProducts(context);
         }
@@ -78,7 +78,7 @@ context.Database.Migrate();
                 })
                 .Generate(10);
 
-           
+
 
             context.Set<Product>().AddRange(products);
             context.SaveChanges();
