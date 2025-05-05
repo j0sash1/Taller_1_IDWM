@@ -10,8 +10,8 @@ using Taller1.Src.Data;
 namespace Taller1.Src.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250421034219_AddUserShippingAddressRelation")]
-    partial class AddUserShippingAddressRelation
+    [Migration("20250425010614_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

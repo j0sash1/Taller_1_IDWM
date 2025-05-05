@@ -19,7 +19,6 @@ namespace Taller1.Src.Models
         public required string PostalCode { get; set; }
 
         public int UserId { get; set; }
-
-        public User User { get; set; } = null!;
+        public User User { get; set; }
     }
 }
