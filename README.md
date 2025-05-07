@@ -38,6 +38,61 @@ Clonar el repositorio utilizando git
 ```bash
   cd Taller_1_IDWM 
 ```
+
+### 3 Crear el archivo "appsettings.json" de la siguiente forma:
+```json
+{
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+        }
+    },
+    "ConnectionStrings": {
+        "DefaultConnection": "Data Source=store.db"
+    },
+    "JWT": {
+        "SignInKey": "random-string", // Cambiar por un string random propio
+        "Issuer": "https://localhost:7064",
+        "Audience": "https://localhost:7064"
+    },
+    "AllowedHosts": "*",
+    "Serilog": {
+        "MinimumLevel": {
+            "Default": "Information",
+            "Override": {
+                "Microsoft": "Warning",
+                "Microsoft.AspNetCore": "Warning",
+                "Microsoft.AspNetCore.Hosting.Diagnostics": "Error",
+                "Microsoft.Hosting.Lifetime": "Information",
+                "System": "Error"
+            }
+        },
+        "Enrich": [
+            "FromLogContext",
+            "WithMachineName",
+            "WithThreadId"
+        ],
+        "WriteTo": [
+            {
+                "Name": "Console"
+            },
+            {
+                "Name": "File",
+                "Args": {
+                    "path": "logs/log-.txt",
+                    "rollingInterval": "Day",
+                    "restrictedToMinimumLevel": "Information"
+                }
+            }
+        ]
+    }
+}
+```
+
+Consideraciones:
+- El JWT_SignInKey debe ser una clave random generada de largo de 128 bits.
+
 ---
 ### 3️⃣ Restaurar paquetes
 ```bash

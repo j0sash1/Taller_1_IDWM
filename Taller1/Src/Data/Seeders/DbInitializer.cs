@@ -1,17 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Bogus;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using Taller1.Src.Models;
 using Taller1.Src.Data.Seeders;
-using Taller1.Src.Dtos;
-using Taller1.Src.Mappers;
 
 namespace Taller1.Src.Data
 {
