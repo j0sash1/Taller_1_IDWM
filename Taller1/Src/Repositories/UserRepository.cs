@@ -16,7 +16,7 @@ namespace Taller1.Src.Repositories
     public class UserRepository(StoreContext store) : IUserRepository
     {
         private readonly StoreContext _context = store;
-        public async Task CreateUserAsync(User user, ShippingAddres? shippingAddress)
+        public async Task CreatedUserAsync(User user, ShippingAddres? shippingAddress)
         {
             await _context.Users.AddAsync(user);
             if (shippingAddress != null) await _context.ShippingAddres.AddAsync(shippingAddress);
