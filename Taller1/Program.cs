@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 using Taller1.Src.Data;
+using Taller1.Src.Data;
+using Taller1.Src.Interfaces;
+using Taller1.Src.Repositories;
 
 Log.Logger = new LoggerConfiguration()
 
@@ -15,6 +18,9 @@ try
     builder.Services.AddControllers();
     builder.Services.AddDbContext<StoreContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    builder.Services.AddScoped<IProductRepository, ProductRepository>();
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<UnitOfWork>();
     builder.Host.UseSerilog((context, services, configuration) =>
     {
         configuration

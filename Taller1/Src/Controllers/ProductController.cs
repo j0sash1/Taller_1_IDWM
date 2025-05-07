@@ -13,29 +13,29 @@ using Taller1.Src.Models;
 namespace Taller1.Src.Controllers
 {
     [Route("[controller]")]
-    public class ProductController : Controller
+    public class ProductController(ILogger<ProductController> logger, UnitOfWork unitOfWork) : BaseController
     {
         private readonly ILogger<ProductController> _logger;
-
-        private readonly StoreContext _context;
-
-        public ProductController(ILogger<ProductController> logger, StoreContext context)
-        {
-            _context = context;
-            _logger = logger;
-        }
+        private readonly UnitOfWork _context = unitOfWork;
 
         [HttpGet]
-        public ActionResult<List<Product>> GetAll()
+        public async Task<ActionResult<List<Product>>> GetAll()
         {
-            var products = _context.Products.ToList();
+            var products = await _context.ProductRepository.GetProductsAsync();
             return Ok(products);
         }
         [HttpGet("{id}")]
-        public ActionResult<Product> GetById(int id)
+        public async Task<ActionResult<Product>> GetById(int id)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = await _context.ProductRepository.GetProductByIdAsync(id);
             return product == null ? (ActionResult<Product>)NotFound() : (ActionResult<Product>)Ok(product);
+        }
+        [HttpPost]
+        public async Task<ActionResult<Product>> Create(Product product)
+        {
+            await _context.ProductRepository.AddProductAsync(product);
+            await _context.SaveChangeAsync();
+            return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
         }
     }
 }
