@@ -17,12 +17,13 @@ namespace Taller1.Src.Controllers
     public class UserController(ILogger<UserController> logger, UnitOfWork unitOfWork) : BaseController
     {
         private readonly ILogger<UserController> _logger = logger;
-        private readonly UnitOfWork _context = unitOfWork;
+        private readonly UnitOfWork _unitOfWorkork = unitOfWork;
 
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _context.UserRepository.GetAllUsersAsync();
+            // var users = await _unitOfWorkork.UserRepository.GetAllUsersAsync();
+            var users = await _unitOfWorkork.UserManager.Users
             return Ok(users);
         }
         [HttpPost]
@@ -48,8 +49,8 @@ namespace Taller1.Src.Controllers
                     PostalCode = userDto.PostalCode ?? string.Empty
                 }
             };
-            await _context.UserRepository.CreatedUserAsync(user, user.ShippingAddres);
-            await _context.SaveChangeAsync();
+            await _unitOfWorkork.UserRepository.CreatedUserAsync(user, user.ShippingAddres);
+            await _unitOfWorkork.SaveChangeAsync();
             return Ok(user);
         }
     }

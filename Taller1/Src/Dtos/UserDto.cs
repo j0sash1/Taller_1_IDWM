@@ -24,5 +24,8 @@ namespace Taller1.Src.Dtos
         public string? Region { get; set; }
 
         public string? PostalCode { get; set; }
+        public DateTime RegisteredAt { get; set; }
+        public DateTime? LastAccess { get; set; }
+        public bool IsActive { get; set; }
     }
 }

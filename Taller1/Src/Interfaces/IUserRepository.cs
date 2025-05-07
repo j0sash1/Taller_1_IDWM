@@ -8,14 +8,14 @@ using Taller1.Src.Models;
 
 namespace Taller1.Src.Interfaces
 {
-    public interface IUserRepository
-    {
-        Task<IEnumerable<UserDto>> GetAllUsersAsync();
-        Task<UserDto> GetUserByIdAsync(string firstName);
-        Task CreatedUserAsync(User user, ShippingAddres? shippingAddres);
-        void UpdateUserAsync(User user);
-        void UpdateShippingAddressAsync(UserDto userDto);
-        void DeleteUserAsync(User user, ShippingAddres shippingAddres);
+    // public interface IUserRepository
+    // {
+    //     Task<IEnumerable<UserDto>> GetAllUsersAsync();
+    //     Task<UserDto> GetUserByIdAsync(string firstName);
+    //     Task CreatedUserAsync(User user, ShippingAddres? shippingAddres);
+    //     void UpdateUserAsync(User user);
+    //     void UpdateShippingAddressAsync(UserDto userDto);
+    //     void DeleteUserAsync(User user, ShippingAddres shippingAddres);
 
-    }
+    // }
 }

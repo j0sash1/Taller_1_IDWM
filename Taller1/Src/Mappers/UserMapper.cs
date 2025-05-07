@@ -10,18 +10,41 @@ namespace Taller1.Src.Mappers
 {
     public class UserMapper
     {
-        public static UserDto MapToDTO(User user) =>
-             new()
-             {
-                 FirstName = user.FirstName,
-                 LastName = user.LastName,
-                 Thelephone = user.Thelephone,
-                 Email = user.Email,
-                 Street = user.ShippingAddres?.Street ?? string.Empty,
-                 Number = user.ShippingAddres?.Number ?? string.Empty,
-                 Commune = user.ShippingAddres?.Commune ?? string.Empty,
-                 Region = user.ShippingAddres?.Region ?? string.Empty,
-                 PostalCode = user.ShippingAddres?.PostalCode ?? string.Empty,
-             };
+        public static User RegisterToUser(RegisterDto dto) =>
+            new()
+            {
+                UserName = dto.Email,
+                Email = dto.Email,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                PhoneNumber = dto.Thelephone,
+                Thelephone = dto.Thelephone,
+                RegisteredAt = DateTime.UtcNow,
+                IsActive = true,
+                ShippingAddres = new ShippingAddres
+                {
+                    Street = dto.Street ?? string.Empty,
+                    Number = dto.Number ?? string.Empty,
+                    Commune = dto.Commune ?? string.Empty,
+                    Region = dto.Region ?? string.Empty,
+                    PostalCode = dto.PostalCode ?? string.Empty
+                }
+            };
+        public static UserDto UserToUserDto(User user) =>
+            new()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email ?? string.Empty,
+                Thelephone = user.PhoneNumber ?? string.Empty,
+                Street = user.ShippingAddres?.Street,
+                Number = user.ShippingAddres?.Number,
+                Commune = user.ShippingAddres?.Commune,
+                Region = user.ShippingAddres?.Region,
+                PostalCode = user.ShippingAddres?.PostalCode,
+                RegisteredAt = user.RegisteredAt,
+                LastAccess = user.LastAccess,
+                IsActive = user.IsActive
+            };
     }
 }

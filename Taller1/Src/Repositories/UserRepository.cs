@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 using Taller1.Src.Data;
 using Taller1.Src.Dtos;
@@ -13,71 +14,44 @@ using Taller1.Src.Models;
 
 namespace Taller1.Src.Repositories
 {
-    public class UserRepository(StoreContext store) : IUserRepository
-    {
-        private readonly StoreContext _context = store;
-        public async Task CreatedUserAsync(User user, ShippingAddres? shippingAddress)
-        {
-            await _context.Users.AddAsync(user);
-            if (shippingAddress != null) await _context.ShippingAddres.AddAsync(shippingAddress);
-        }
-        public void DeleteUserAsync(User user, ShippingAddres shippingAddress)
-        {
-            _context.ShippingAddres.Remove(shippingAddress);
-            _context.Users.Remove(user);
-        }
-        public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
-        {
-            var users = await _context.Users.Include(x => x.ShippingAddres).ToListAsync();
+    // public class UserRepository(StoreContext store) : IUserRepository
+    // {
+    //     private readonly UserManager<User> _userManager = userManager;
+    //     public IQueryable<User> GetUsersQueryable()
+    //     {
+    //         return _userManager.Users.Include(u => u.ShippingAddres).AsQueryable();
+    //     }
 
+    //     public async Task<User?> GetUserByIdAsync(string id)
+    //     {
+    //         return await _userManager.Users
+    //             .Include(u => u.ShippingAddres)
+    //             .FirstOrDefaultAsync(u => u.Id == id);
+    //     }
 
-            return users.Select(UserMapper.MapToDTO);
-        }
-        public Task<UserDto> GetUserByIdAsync(string firstName)
-        {
-            var user = _context.Users.Include(x => x.ShippingAddres).FirstOrDefault(x => x.FirstName == firstName) ?? throw new Exception("User not found");
-            return Task.FromResult(UserMapper.MapToDTO(user));
-        }
-        public void UpdateShippingAddressAsync(UserDto userDto)
-        {
-            var user = _context.Users.Include(x => x.ShippingAddres).FirstOrDefault(x => x.FirstName == userDto.FirstName) ?? throw new Exception("User not found");
+    //     public async Task<User?> GetUserByEmailAsync(string email)
+    //     {
+    //         return await _userManager.Users
+    //             .Include(u => u.ShippingAddres)
+    //             .FirstOrDefaultAsync(u => u.Email == email);
+    //     }
 
-            if (user.ShippingAddres == null)
-            {
-                user.ShippingAddres = new ShippingAddres
-                {
-                    Street = userDto.Street ?? string.Empty,
-                    Number = userDto.Number ?? string.Empty,
-                    Commune = userDto.Commune ?? string.Empty,
-                    Region = userDto.Region ?? string.Empty,
-                    PostalCode = userDto.PostalCode ?? string.Empty
-                };
-            }
-            else
-            {
-                user.ShippingAddres.Street = userDto.Street ?? string.Empty;
-                user.ShippingAddres.Number = userDto.Number ?? string.Empty;
-                user.ShippingAddres.Commune = userDto.Commune ?? string.Empty;
-                user.ShippingAddres.Region = userDto.Region ?? string.Empty;
-                user.ShippingAddres.PostalCode = userDto.PostalCode ?? string.Empty;
-            }
-            _context.ShippingAddres.Update(user.ShippingAddres);
-            _context.Users.Update(user);
-        }
-        public void UpdateUserAsync(User user)
-        {
-            var existingUser = _context.Users.FirstOrDefault(x => x.FirstName == user.FirstName) ?? throw new Exception("User not found");
-            if (existingUser != null)
-            {
-                existingUser.LastName = user.LastName;
-                existingUser.Thelephone = user.Thelephone;
-                existingUser.Email = user.Email;
-                _context.Users.Update(existingUser);
-            }
-            else
-            {
-                throw new Exception("User not found");
-            }
-        }
-    }
+    //     public async Task UpdateUserAsync(User user)
+    //     {
+    //         await _userManager.UpdateAsync(user);
+    //     }
+    //     public async Task<User?> GetByEmailAsync(string email)
+    //     {
+    //         return await _userManager.Users
+    //             .Include(u => u.ShippingAddres)
+    //             .FirstOrDefaultAsync(u => u.Email == email);
+    //     }
+
+    //     public async Task<bool> CheckPasswordAsync(User user, string password)
+    //     {
+    //         var hasher = new PasswordHasher<User>();
+    //         var result = hasher.VerifyHashedPassword(user, user.PasswordHash!, password);
+    //         return result == PasswordVerificationResult.Success;
+    //     }
+    // }
 }

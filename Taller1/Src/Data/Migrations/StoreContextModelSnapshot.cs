@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Taller1.Src.Data;
 
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 #nullable disable
 
 namespace Taller1.Src.Data.Migrations
