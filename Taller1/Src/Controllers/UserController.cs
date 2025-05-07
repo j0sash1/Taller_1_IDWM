@@ -10,27 +10,47 @@ using Microsoft.Extensions.Logging;
 using Taller1.Src.Data;
 using Taller1.Src.Dtos;
 
+using Taller1.Src.Models;
+
 namespace Taller1.Src.Controllers
 {
-    [Route("[controller]")]
-    public class UserController : Controller
+    public class UserController(ILogger<UserController> logger, UnitOfWork unitOfWork) : BaseController
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<UserController> _logger = logger;
+        private readonly UnitOfWork _context = unitOfWork;
 
-        public UserController(ILogger<UserController> logger)
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
         {
-            _logger = logger;
+            var users = await _context.UserRepository.GetAllUsersAsync();
+            return Ok(users);
         }
-
-        public IActionResult Index()
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(CreateUserDto userDto)
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
+            if (userDto.ConfirmPassword != userDto.Password)
+            {
+                return BadRequest("Passwords do not match");
+            }
+            var user = new User
+            {
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                Email = userDto.Email,
+                Password = userDto.Password,
+                Thelephone = userDto.Thelephone,
+                ShippingAddres = new ShippingAddres
+                {
+                    Street = userDto.Street ?? string.Empty,
+                    Number = userDto.Number ?? string.Empty,
+                    Commune = userDto.Commune ?? string.Empty,
+                    Region = userDto.Region ?? string.Empty,
+                    PostalCode = userDto.PostalCode ?? string.Empty
+                }
+            };
+            await _context.UserRepository.CreatedUserAsync(user, user.ShippingAddres);
+            await _context.SaveChangeAsync();
+            return Ok(user);
         }
     }
 }
