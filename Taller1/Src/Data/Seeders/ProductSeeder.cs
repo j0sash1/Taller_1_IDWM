@@ -1,6 +1,6 @@
-using Taller1.Src.Models;
-
 using Bogus;
+
+using Taller1.Src.Models;
 
 namespace Taller1.Src.Data.Seeders
 {
@@ -24,7 +24,7 @@ namespace Taller1.Src.Data.Seeders
                     $"https://res.cloudinary.com/demo/image/upload/sample3.jpg"
                 })
                 .Generate(quantity);
-            
+
             return products;
 
         }

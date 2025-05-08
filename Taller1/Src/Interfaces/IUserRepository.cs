@@ -10,7 +10,7 @@ namespace Taller1.Src.Interfaces
     public interface IUserRepository
     {
         Task<List<User>> GetAllUsersAsync();
-        Task CreatedUserAsync(User user, ShippingAddres shippingAddres);
+        Task CreatedUserAsync(User user, string password, ShippingAddres shippingAddres);
 
     }
 }

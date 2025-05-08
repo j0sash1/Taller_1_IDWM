@@ -1,10 +1,13 @@
 using System.Security.Claims;
 using System.Text;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+
 using Serilog;
+
 using Taller1.Src.Data;
 using Taller1.Src.Interfaces;
 using Taller1.Src.Models;

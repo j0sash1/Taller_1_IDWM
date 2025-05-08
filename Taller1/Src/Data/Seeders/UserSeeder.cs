@@ -1,10 +1,10 @@
-using Taller1.Src.Dtos;
-using Taller1.Src.Mappers;
-using Taller1.Src.Models;
-
 using Bogus;
 
 using Microsoft.AspNetCore.Identity;
+
+using Taller1.Src.Dtos;
+using Taller1.Src.Mappers;
+using Taller1.Src.Models;
 
 namespace Taller1.Src.Data.Seeders
 {

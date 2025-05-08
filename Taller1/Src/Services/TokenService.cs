@@ -2,10 +2,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
+using Microsoft.IdentityModel.Tokens;
+
 using Taller1.Src.Interfaces;
 using Taller1.Src.Models;
-
-using Microsoft.IdentityModel.Tokens;
 
 namespace Taller1.Src.Services
 {

@@ -24,9 +24,9 @@ namespace Taller1.Src.Repositories
                 .Include(u => u.ShippingAddres)
                 .ToListAsync();
         }
-        public async Task CreatedUserAsync(User user, ShippingAddres shippingAddres)
+        public async Task CreatedUserAsync(User user, string password, ShippingAddres shippingAddres)
         {
-            await _userManager.CreateAsync(user, user.Password);
+            await _userManager.CreateAsync(user, password);
             _context.ShippingAddresses.Add(shippingAddres);
             await _context.SaveChangesAsync();
         }
