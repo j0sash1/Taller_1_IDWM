@@ -1,11 +1,11 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "Ejecutando dotnet format..."
-dotnet format
+echo "Ejecutando dotnet build..."
+dotnet build
 RESULT=$?
 
 if [ $RESULT -ne 0 ]; then
-  echo "❌ Error: dotnet format falló."
+  echo "❌ Error: dotnet build falló."
   exit 1
 fi
