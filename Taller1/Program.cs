@@ -1,10 +1,13 @@
 using System.Security.Claims;
 using System.Text;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+
 using Serilog;
+
 using Taller1.Src.Data;
 using Taller1.Src.Interfaces;
 using Taller1.Src.Models;
@@ -20,6 +23,7 @@ try
     var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IUserService, UserService>();
     builder.Services.AddScoped<UnitOfWork>();
     builder

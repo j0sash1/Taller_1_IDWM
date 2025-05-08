@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 using Taller1.Src.Models;
 
@@ -9,8 +9,8 @@ namespace Taller1.Src.Data
     public class StoreContext(DbContextOptions<StoreContext> options) : IdentityDbContext<User>(options)
     {
         public required DbSet<Product> Products { get; set; }
-        
-        public required DbSet<ShippingAddres> ShippingAddres { get; set; }
+
+        public required DbSet<ShippingAddres> ShippingAddresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace Taller1.Src.Data
                     .HasOne(u => u.ShippingAddres)
                     .WithOne(sa => sa.User)
                     .HasForeignKey<ShippingAddres>(sa => sa.UserId);
-            List<IdentityRole> roles = 
+            List<IdentityRole> roles =
             [
                 new IdentityRole { Id = "1",Name = "Admin", NormalizedName = "ADMIN" },
                 new IdentityRole { Id = "2",Name = "User", NormalizedName = "USER"}

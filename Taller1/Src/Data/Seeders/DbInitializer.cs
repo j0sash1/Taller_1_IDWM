@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-using Taller1.Src.Models;
 using Taller1.Src.Data.Seeders;
+using Taller1.Src.Models;
 
 namespace Taller1.Src.Data
 {
@@ -17,14 +17,14 @@ namespace Taller1.Src.Data
 
             var context = scope.ServiceProvider.GetRequiredService<StoreContext>()
                 ?? throw new InvalidOperationException("Could not get StoreContext");
-            
+
             await SeedData(context, userManager);
         }
 
-       private static async Task SeedData(StoreContext context, UserManager<User> userManager)
-       {
+        private static async Task SeedData(StoreContext context, UserManager<User> userManager)
+        {
             await context.Database.MigrateAsync();
-            
+
             if (!context.Products.Any())
             {
                 var products = ProductSeeder.GenerateProducts(10);
@@ -37,6 +37,6 @@ namespace Taller1.Src.Data
             }
 
             await context.SaveChangesAsync();
-       }
+        }
     }
 }
