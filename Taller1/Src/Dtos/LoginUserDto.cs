@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace Taller1.Src.Dtos
 {
@@ -13,7 +13,7 @@ namespace Taller1.Src.Dtos
         public required string Email { get; set; }
 
         [Required(ErrorMessage = "La contraseña es obligatoria.")]
-        [StringLenth(100, MinimumLength = 8, ErrorMessage = "La contraseña debe tener al menos 8 caracteres.")]
+        [StringLength(100, MinimumLength = 8, ErrorMessage = "La contraseña debe tener al menos 8 caracteres.")]
         public required string Password { get; set; }
     }
 }
