@@ -1,6 +1,6 @@
-@Taller1_HostAddress = http://localhost:5054
+@Taller1_HostAddress = http://localhost:7064
 
-GET {{Taller1_HostAddress}}/weatherforecast/
+GET https://localhost:7064/api/user
 Accept: application/json
 
 ###

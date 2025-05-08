@@ -1,56 +1,39 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-
+using Microsoft.EntityFrameworkCore;
 using Taller1.Src.Data;
 using Taller1.Src.Dtos;
-
+using Taller1.Src.Interfaces;
 using Taller1.Src.Models;
 
 namespace Taller1.Src.Controllers
 {
-    public class UserController(ILogger<UserController> logger, UnitOfWork unitOfWork) : BaseController
+    public class UserController(ILogger<UserController> logger, IUserService userService)
+        : BaseController
     {
         private readonly ILogger<UserController> _logger = logger;
-        private readonly UnitOfWork _context = unitOfWork;
+        private readonly IUserService _userService = userService;
 
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _context.UserRepository.GetAllUsersAsync();
+            var users = await _userService.GetAllUsersAsync();
             return Ok(users);
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserDto userDto)
         {
-            if (userDto.ConfirmPassword != userDto.Password)
+            try
             {
-                return BadRequest("Passwords do not match");
+                var user = await _userService.CreateUserAsync(userDto);
+                return Ok(user);
             }
-            var user = new User
+            catch (Exception ex)
             {
-                FirstName = userDto.FirstName,
-                LastName = userDto.LastName,
-                Email = userDto.Email,
-                Password = userDto.Password,
-                Thelephone = userDto.Thelephone,
-                ShippingAddres = new ShippingAddres
-                {
-                    Street = userDto.Street ?? string.Empty,
-                    Number = userDto.Number ?? string.Empty,
-                    Commune = userDto.Commune ?? string.Empty,
-                    Region = userDto.Region ?? string.Empty,
-                    PostalCode = userDto.PostalCode ?? string.Empty
-                }
-            };
-            await _context.UserRepository.CreatedUserAsync(user, user.ShippingAddres);
-            await _context.SaveChangeAsync();
-            return Ok(user);
+                _logger.LogError(ex, "Error creating user");
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
