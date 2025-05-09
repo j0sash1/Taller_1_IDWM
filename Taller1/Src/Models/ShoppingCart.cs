@@ -8,7 +8,7 @@ namespace Taller1.Src.Models
     public class ShoppingCart
     {
         public int Id { get; set; }
-        public required string CartId { get; set; } 
+        public required string CartId { get; set; }
         public List<ShoppingItem> Items { get; set; } = [];
         public void AddItem(Product product, int quantity)
         {
@@ -30,7 +30,7 @@ namespace Taller1.Src.Models
             {
                 existingItem.Quantity += quantity;
             }
-        } 
+        }
         public void RemoveItem(int productId, int quantity)
         {
 
