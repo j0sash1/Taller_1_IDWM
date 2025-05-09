@@ -7,7 +7,7 @@ namespace Taller1.Src.Interfaces
         Task<Product> GetProductByIdAsync(int id);
         Task<IEnumerable<Product>> GetProductsAsync();
         Task AddProductAsync(Product product);
-        void DeleteProductAsync(Product product);
+        Task DeleteProductAsync(Product product);
         Task UpdateProductAsync(Product product);
     }
 }
