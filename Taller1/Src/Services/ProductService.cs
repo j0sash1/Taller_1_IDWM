@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Taller1.Src.Interfaces;
-using Taller1.Src.Models;
-using Taller1.Src.Dtos;
-using Taller1.Src.Mappers;
 using Taller1.Src.Data;
+using Taller1.Src.Dtos;
+using Taller1.Src.Interfaces;
+using Taller1.Src.Mappers;
+using Taller1.Src.Models;
 
 namespace Taller1.Src.Services
 {
-    public class ProductService: IProductService
+    public class ProductService : IProductService
     {
         private readonly UnitOfWork _unitOfWork;
-         public ProductService(UnitOfWork unitOfWork)
+        public ProductService(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -67,5 +67,5 @@ namespace Taller1.Src.Services
             await _unitOfWork.SaveChangeAsync();
             return true;
         }
-    } 
+    }
 }
