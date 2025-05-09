@@ -72,8 +72,15 @@ try
         }
     );
 
+    var isRunningEfTool = AppDomain.CurrentDomain.FriendlyName == "ef";
+
     var app = builder.Build();
-    await DbInitializer.InitDb(app);
+
+    if (!isRunningEfTool)
+    {
+        await DbInitializer.InitDb(app);
+    }
+
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
