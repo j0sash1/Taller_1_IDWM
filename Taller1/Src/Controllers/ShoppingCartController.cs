@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Mvc;
+using Taller1.Src.Interfaces;
+using Taller1.Src.Dtos;
+using Taller1.Src.Data;
 using Taller1.Src.Interfaces;
 
-[ApiController]
-[Route("api/[controller]")]
 namespace Taller1.Src.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class ShoppingCartController : ControllerBase
     {
         private readonly IShoppingCartService _cartService;
