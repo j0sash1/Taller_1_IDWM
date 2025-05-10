@@ -13,7 +13,7 @@ namespace Taller1.Src.Services
 {
     public class ShoppingCartService : IShoppingCartService
     {
-        private readonly UnitOfwork _unitOfWork;
+        private readonly UnitOfWork _unitOfWork;
         public ShoppingCartService(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
