@@ -12,7 +12,7 @@ using Taller1.Src.Models;
 
 namespace Taller1.Src.Repositories
 {
-    public class OrderRepository: IOrderRepository
+    public class OrderRepository : IOrderRepository
     {
         private readonly StoreContext _context;
         public OrderRepository(StoreContext context)
