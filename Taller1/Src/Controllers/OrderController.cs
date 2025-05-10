@@ -25,7 +25,7 @@ namespace Taller1.Src.Controllers
         public async Task<IActionResult> CreateOrder(CreateOrderDto dto)
         {
             var result = await _orderService.CreateOrderAsync(dto, User);
-            return Ok(result); 
+            return Ok(result);
         }
     }
 }
