@@ -9,6 +9,7 @@ namespace Taller1.Src.Data
         StoreContext context,
         IProductRepository productRepository,
         IUserRepository userRepository,
+        IShoppingCartRepository shoppingCartRepository,
         UserManager<User> userManager
     )
     {
@@ -19,7 +20,7 @@ namespace Taller1.Src.Data
 
         public IProductRepository ProductRepository { get; set; } = productRepository;
         public IUserRepository UserRepository { get; set; } = userRepository;
-
+        public IShoppingCartRepository ShoppingCartRepository { get; set; } = shoppingCartRepository;
         public async Task SaveChangeAsync()
         {
             await _context.SaveChangesAsync();

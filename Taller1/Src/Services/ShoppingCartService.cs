@@ -40,7 +40,7 @@ namespace Taller1.Src.Services
             {
                 throw new ArgumentException("Producto no encontrado", nameof(productId));
             }
-            cart.AddItem(product, quantity);  
+            cart.AddItem(product, quantity);
             await _unitOfWork.CompleteAsync();
         }
         public async Task RemoveItemAsync(string cartId, int productId, int quantity)
