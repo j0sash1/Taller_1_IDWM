@@ -27,7 +27,7 @@ namespace Taller1.Src.Controllers
             return Ok(cart);
         }
         [HttpPost("add")]
-        public async Task<IActionResult> AddItem([FromBody] AddItemDto dto)
+        public async Task<IActionResult> AddItem([FromBody] ShoppingItemDTo dto)
         {
             await _cartService.AddItemAsync(dto.CartId, dto.ProductId, dto.Quantity);
             return NoContent();
