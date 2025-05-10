@@ -9,6 +9,6 @@ namespace Taller1.Src.Dtos
     {
         public string CartId { get; set; } = string.Empty;
         public List<ShoppingItemDto> Items { get; set; } = new();
-        public decimal Total => Items.Sum(in => int.Price * int.Quantity); 
+        public decimal Total => Items.Sum(item => item.Price * item.Quantity); 
     }
 }
