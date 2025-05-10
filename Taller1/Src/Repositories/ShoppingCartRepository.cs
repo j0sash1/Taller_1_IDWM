@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
 using Taller1.Src.Data;
 using Taller1.Src.Dtos;
 using Taller1.Src.Interfaces;
@@ -10,7 +11,7 @@ using Taller1.Src.Models;
 
 namespace Taller1.Src.Repositories
 {
-    public interface ShoppingCartRepository : IShoppingCartRepository
+    public class ShoppingCartRepository : IShoppingCartRepository
     {
         private readonly StoreContext _context;
         public ShoppingCartRepository(StoreContext context)

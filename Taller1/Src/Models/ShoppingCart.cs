@@ -47,6 +47,10 @@ namespace Taller1.Src.Models
                 Items.Remove(item);
             }
         }
+        public void ClearItems()
+        {
+            Items.Clear();  
+        }
         private ShoppingItem? FindItem(int productId)
         {
             return Items.FirstOrDefault(item => item.ProductId == productId);

@@ -41,7 +41,7 @@ namespace Taller1.Src.Services
                 throw new ArgumentException("Producto no encontrado", nameof(productId));
             }
             cart.AddItem(product, quantity);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.SaveChangeAsync();
         }
         public async Task RemoveItemAsync(string cartId, int productId, int quantity)
         {
@@ -56,20 +56,22 @@ namespace Taller1.Src.Services
             {
                 item.Quantity -= quantity;
                 if (item.Quantity <= 0)
-                {
-                    cart.RemoveItem(item);
+                {   
+                    cart.RemoveItem(productId, quantity);  // Aquí pasamos los dos parámetros correctamente
                 }
-                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.SaveChangeAsync();
             }
         }
         public async Task ClearCartAsync(string cartId)
         {
             var cart = await _unitOfWork.ShoppingCartRepository.GetByCartIdAsync(cartId);
-            if (cart != null)
+            if (cart == null)
             {
-                cart.ClearItems();
-                await _unitOfWork.SaveChangesAsync();
+                throw new ArgumentException("Carrito no encontrado", nameof(cartId));
             }
+
+            cart.ClearItems();  
+            await _unitOfWork.SaveChangeAsync();
         }
     }
 }

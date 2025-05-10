@@ -15,7 +15,7 @@ namespace Taller1.Src.Mappers
             return new ShoppingCartDto
             {
                 CartId = cart.CartId,
-                Items = cart.Items.Select(item => new ShoppingItemDto
+                Items = cart.Items.Select(item => new ShoppingItemDTo
                 {
                     ProductId = item.ProductId,
                     Quantity = item.Quantity,
