@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using System.Security.Claims;
 using Taller1.Src.Data;
 using Taller1.Src.Dtos;
 using Taller1.Src.Interfaces;
@@ -11,7 +12,7 @@ using Taller1.Src.Models;
 
 namespace Taller1.Src.Services
 {
-    public class OrderService
+    public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepo;
         private readonly IProductRepository _productRepo;
@@ -32,7 +33,7 @@ namespace Taller1.Src.Services
             decimal total = 0;
             foreach (var itemDto in dto.Items)
             {
-                var product = await _productRepo.GetByIdAsync(itemDto.ProductId);
+                var product = await _productRepo.GetProductByIdAsync(itemDto.ProductId);
                 if (product == null) throw new Exception($"Producto ID {itemDto.ProductId} no encontrado");
 
                 var orderItem = new OrderItem
