@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Taller1.Src.Interfaces
 {
-    public class IShoppingCartRepository
+    public interface IShoppingCartRepository
     {
         Task<ShoppingCart> GetByCartIdAsync(string cartId);  
         Task AddAsync(ShoppingCart cart);  
