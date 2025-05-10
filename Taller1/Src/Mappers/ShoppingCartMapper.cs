@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Taller1.Src.Models;
+using Taller1.Src.Dtos;
+
 namespace Taller1.Src.Mappers
 {
     public static class ShoppingCartMapper
     {
-        return new ShoppingCartDto
+        public static ShoppingCartDto ToDto(ShoppingCart cart)
         {
-            CartId = ShoppingCartMapper.CartId,
-            Items = ShoppingCartMapper.Items.Select(item => new ShoppingItemDto
+            return new ShoppingCartDto
             {
-                ProductId = item.ProductId,
-                ProductName = item.Product.Name,
-                Quantity = item.Quantity,
-                Price = item.Product.Price
-    }).ToList()
-        };
+                CartId = cart.CartId,
+                Items = cart.Items.Select(item => new ShoppingItemDto
+                {
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    ProductName = item.Product.Name,
+                    Price = item.Product.Price
+                }).ToList()
+            };
+        }
     }
 }

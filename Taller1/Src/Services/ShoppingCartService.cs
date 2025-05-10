@@ -11,12 +11,12 @@ using Taller1.Src.Models;
 
 namespace Taller1.Src.Services
 {
-    public class ShoppingCartService: IShoppingCartService
+    public class ShoppingCartService : IShoppingCartService
     {
         private readonly UnitOfwork _unitOfWork;
         public ShoppingCartService(UnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork
+            _unitOfWork = unitOfWork;
         }
         public async Task<ShoppingCartDto> GetCartAsync(string cartId)
         {
@@ -32,7 +32,7 @@ namespace Taller1.Src.Services
             var cart = await _unitOfWork.ShoppingCartRepository.GetByCartIdAsync(cartId);
             if (cart == null)
             {
-                cart = new ShoppingCart { CartId = cartId }
+                cart = new ShoppingCart { CartId = cartId };
                 await _unitOfWork.ShoppingCartRepository.AddAsync(cart);
             }
             var product = await _unitOfWork.ProductRepository.GetProductByIdAsync(productId);
@@ -40,16 +40,16 @@ namespace Taller1.Src.Services
             {
                 throw new ArgumentException("Producto no encontrado", nameof(productId));
             }
-            cart.AddItem(product, quantity);
+            cart.AddItem(product, quantity);  
             await _unitOfWork.CompleteAsync();
         }
         public async Task RemoveItemAsync(string cartId, int productId, int quantity)
         {
-        // Implementar lógica para remover producto del carrito
+            // Implementar lógica para remover producto del carrito
         }
         public async Task ClearCartAsync(string cartId)
         {
-        // Implementar lógica para vaciar carrito
+            // Implementar lógica para vaciar carrito
         }
     }
 }

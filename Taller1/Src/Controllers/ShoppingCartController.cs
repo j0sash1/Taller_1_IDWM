@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Taller1.Src.Interfaces
+using Taller1.Src.Interfaces;
 
 [ApiController]
 [Route("api/[controller]")]
 namespace Taller1.Src.Controllers
 {
-    public class ShoppingCartController: ControllerBase
+    public class ShoppingCartController : ControllerBase
     {
         private readonly IShoppingCartService _cartService;
         public ShoppingCartController(IShoppingCartService cartService)
@@ -27,6 +27,6 @@ namespace Taller1.Src.Controllers
         {
             await _cartService.AddItemAsync(dto.CartId, dto.ProductId, dto.Quantity);
             return NoContent();
-        } 
+        }
     }
 }
