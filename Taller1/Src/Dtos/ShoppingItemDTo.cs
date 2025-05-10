@@ -7,6 +7,7 @@ namespace Taller1.Src.Dtos
 {
     public class ShoppingItemDTo
     {
+        public string CartId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; } = string.Empty;
         public int Quantity { get; set; }
