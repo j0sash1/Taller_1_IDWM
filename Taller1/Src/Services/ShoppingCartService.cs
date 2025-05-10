@@ -45,11 +45,31 @@ namespace Taller1.Src.Services
         }
         public async Task RemoveItemAsync(string cartId, int productId, int quantity)
         {
-            // Implementar lógica para remover producto del carrito
+            var cart = await _unitOfWork.ShoppingCartRepository.GetByCartIdAsync(cartId);
+            if (cart == null)
+            {
+                throw new ArgumentException("Carrito no encontrado", nameof(cartId));
+            }
+
+            var item = cart.Items.FirstOrDefault(i => i.ProductId == productId);
+            if (item != null)
+            {
+                item.Quantity -= quantity;
+                if (item.Quantity <= 0)
+                {
+                    cart.RemoveItem(item);
+                }
+                await _unitOfWork.SaveChangesAsync();
+            }
         }
         public async Task ClearCartAsync(string cartId)
         {
-            // Implementar lógica para vaciar carrito
+            var cart = await _unitOfWork.ShoppingCartRepository.GetByCartIdAsync(cartId);
+            if (cart != null)
+            {
+                cart.ClearItems();
+                await _unitOfWork.SaveChangesAsync();
+            }
         }
     }
 }
