@@ -56,7 +56,7 @@ namespace Taller1.Src.Services
             {
                 item.Quantity -= quantity;
                 if (item.Quantity <= 0)
-                {   
+                {
                     cart.RemoveItem(productId, quantity);  // Aquí pasamos los dos parámetros correctamente
                 }
                 await _unitOfWork.SaveChangeAsync();
@@ -70,7 +70,7 @@ namespace Taller1.Src.Services
                 throw new ArgumentException("Carrito no encontrado", nameof(cartId));
             }
 
-            cart.ClearItems();  
+            cart.ClearItems();
             await _unitOfWork.SaveChangeAsync();
         }
     }

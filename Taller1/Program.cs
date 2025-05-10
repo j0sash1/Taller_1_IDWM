@@ -26,6 +26,8 @@ try
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
     builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+    builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+    builder.Services.AddScoped<IOrderService, OrderService>();
     builder.Services.AddScoped<IUserService, UserService>();
     builder.Services.AddScoped<UnitOfWork>();
     builder
