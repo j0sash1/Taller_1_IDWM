@@ -49,7 +49,7 @@ namespace Taller1.Src.Models
         }
         public void ClearItems()
         {
-            Items.Clear();  
+            Items.Clear();
         }
         private ShoppingItem? FindItem(int productId)
         {

@@ -11,7 +11,7 @@ namespace Taller1.Src.Data
         public required DbSet<Product> Products { get; set; }
         public required DbSet<ShippingAddres> ShippingAddresses { get; set; }
         public required DbSet<ShoppingCart> ShoppingCarts { get; set; }
-        public required DbSet<Order> Orders { get; set;}
+        public required DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
