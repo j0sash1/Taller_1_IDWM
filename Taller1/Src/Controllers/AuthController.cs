@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+
 using Taller1.Src.Data;
 using Taller1.Src.Dtos;
 using Taller1.Src.Dtos.Auth;
@@ -5,9 +8,6 @@ using Taller1.Src.Helpers;
 using Taller1.Src.Interfaces;
 using Taller1.Src.Mappers;
 using Taller1.Src.Models;
-
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 
 namespace Taller1.Src.Controllers

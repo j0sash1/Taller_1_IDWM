@@ -1,7 +1,7 @@
 using System.Security.Claims;
 
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Taller1.Src.Data;
 using Taller1.Src.Dtos;
@@ -47,7 +47,7 @@ namespace Taller1.Src.Controllers
                     product.Stock -= item.Quantity;
 
                     if (product.Stock < 0)
-                    return BadRequest(new ApiResponse<string>(false, $"No hay suficiente stock para el producto {product.Name}"));
+                        return BadRequest(new ApiResponse<string>(false, $"No hay suficiente stock para el producto {product.Name}"));
                     if (product.Stock == 0)
                         product.IsActive = false;
                 }

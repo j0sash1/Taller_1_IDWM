@@ -4,6 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 using Taller1.Src.Data;
 using Taller1.Src.Dtos;
 using Taller1.Src.Extensions;
@@ -12,9 +15,6 @@ using Taller1.Src.Interfaces;
 using Taller1.Src.Mappers;
 using Taller1.Src.Models;
 using Taller1.Src.RequestHelpers;
-
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 
 namespace Taller1.Src.Controllers
@@ -54,7 +54,7 @@ namespace Taller1.Src.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse<Product>>> GetById(int id)
         {
-        var product = await _context.ProductRepository.GetProductByIdAsync(id);
+            var product = await _context.ProductRepository.GetProductByIdAsync(id);
 
             return product == null
                 ? (ActionResult<ApiResponse<Product>>)NotFound(new ApiResponse<Product>(false, "Product not found"))
@@ -130,7 +130,7 @@ namespace Taller1.Src.Controllers
                 }
 
                 product.Urls = new List<string> { result.SecureUrl.AbsoluteUri };
-             product.PublicId = result.PublicId;
+                product.PublicId = result.PublicId;
             }
 
             // Actualizar datos básicos

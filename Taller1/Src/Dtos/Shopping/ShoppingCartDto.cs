@@ -9,7 +9,7 @@ namespace Taller1.Src.Dtos
 {
     public class ShoppingCartDto
     {
-        public required string CartId { get; set; }        
-         public List<ShoppingItemDTo> Items { get; set; } = [];
+        public required string CartId { get; set; }
+        public List<ShoppingItemDTo> Items { get; set; } = [];
     }
 }
