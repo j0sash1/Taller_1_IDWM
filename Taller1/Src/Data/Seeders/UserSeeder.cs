@@ -17,7 +17,7 @@ namespace Taller1.Src.Data.Seeders
                 .RuleFor(u => u.Email, f => f.Internet.Email())
                 .RuleFor(u => u.Password, f => "User" + f.Random.Number(1000, 9999).ToString())
                 .RuleFor(u => u.LastName, f => f.Person.LastName)
-                .RuleFor(u => u.Thelephone, f => f.Phone.PhoneNumber())
+                .RuleFor(u => u.telephone, f => f.Phone.PhoneNumber())
                 .RuleFor(u => u.ConfirmPassword, (f, u) => u.Password)
                 .RuleFor(u => u.Street, f => f.Address.StreetName())
                 .RuleFor(u => u.Number, f => f.Address.BuildingNumber())
@@ -36,7 +36,7 @@ namespace Taller1.Src.Data.Seeders
                 Email = "ignacio.mancilla@gmail.com",
                 FirstName = "Ignacio",
                 LastName = "Mancilla",
-                Thelephone = "999999999",
+                Telephone = "999999999",
                 RegisteredAt = DateTime.UtcNow,
                 IsActive = true,
                 ShippingAddres = new ShippingAddres

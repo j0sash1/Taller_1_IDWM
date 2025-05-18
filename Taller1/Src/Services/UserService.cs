@@ -29,7 +29,7 @@ namespace Taller1.Src.Services
             {
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
-                Thelephone = userDto.Thelephone,
+                Telephone = userDto.telephone,
                 ShippingAddres = new ShippingAddres
                 {
                     Street = userDto.Street ?? string.Empty,

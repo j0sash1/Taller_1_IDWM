@@ -400,7 +400,7 @@ namespace Taller1.Src.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Thelephone")
+                    b.Property<string>("Telephone")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

@@ -11,8 +11,8 @@ using Taller1.Src.Data;
 namespace Taller1.Src.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250509012849_NuevaMigracion")]
-    partial class NuevaMigracion
+    [Migration("20250518045139_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,6 +162,66 @@ namespace Taller1.Src.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Taller1.Src.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Taller1.Src.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItem");
+                });
+
             modelBuilder.Entity("Taller1.Src.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -236,6 +296,48 @@ namespace Taller1.Src.Data.Migrations
                     b.ToTable("ShippingAddresses");
                 });
 
+            modelBuilder.Entity("Taller1.Src.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CartId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("Taller1.Src.Models.ShoppingItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("shoppingCartId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("shoppingCartId");
+
+                    b.ToTable("ShoppingItems");
+                });
+
             modelBuilder.Entity("Taller1.Src.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -301,7 +403,7 @@ namespace Taller1.Src.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Thelephone")
+                    b.Property<string>("Telephone")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -375,6 +477,28 @@ namespace Taller1.Src.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Taller1.Src.Models.Order", b =>
+                {
+                    b.HasOne("Taller1.Src.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Taller1.Src.Models.OrderItem", b =>
+                {
+                    b.HasOne("Taller1.Src.Models.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Taller1.Src.Models.ShippingAddres", b =>
                 {
                     b.HasOne("Taller1.Src.Models.User", "User")
@@ -384,6 +508,35 @@ namespace Taller1.Src.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Taller1.Src.Models.ShoppingItem", b =>
+                {
+                    b.HasOne("Taller1.Src.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Taller1.Src.Models.ShoppingCart", "shoppingCart")
+                        .WithMany("Items")
+                        .HasForeignKey("shoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("shoppingCart");
+                });
+
+            modelBuilder.Entity("Taller1.Src.Models.Order", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Taller1.Src.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Taller1.Src.Models.User", b =>

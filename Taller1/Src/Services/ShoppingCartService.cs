@@ -57,7 +57,7 @@ namespace Taller1.Src.Services
                 item.Quantity -= quantity;
                 if (item.Quantity <= 0)
                 {
-                    cart.RemoveItem(productId, quantity);  // Aquí pasamos los dos parámetros correctamente
+                    cart.RemoveItem(productId, quantity);
                 }
                 await _unitOfWork.SaveChangeAsync();
             }
