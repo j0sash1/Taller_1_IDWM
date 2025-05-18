@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace Taller1.Src.Dtos
 {
-    public class ShoppingItemDTo
+    public class OrderItemDto
     {
-        public string CartId { get; set; }
         public int ProductId { get; set; }
-        public string ProductName { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string ImageUrl { get; set; } = string.Empty;
         public int Quantity { get; set; }
-        public decimal Price { get; set; }
+        public int Price { get; set; }
     }
 }

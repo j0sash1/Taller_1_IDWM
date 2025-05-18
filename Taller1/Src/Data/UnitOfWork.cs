@@ -15,9 +15,8 @@ namespace Taller1.Src.Data
     {
         private readonly StoreContext _context = context;
 
-        // public IUserRepository UserRepository { get; set; } = userRepository;
-        public UserManager<User> UserManager = userManager;
-
+        private readonly StoreContext _context = context;
+        public IOrderRepository OrderRepository { get; set; } = orderRepository;
         public IProductRepository ProductRepository { get; set; } = productRepository;
         public IUserRepository UserRepository { get; set; } = userRepository;
         public IShoppingCartRepository ShoppingCartRepository { get; set; } = shoppingCartRepository;
