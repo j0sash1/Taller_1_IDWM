@@ -8,7 +8,7 @@ namespace Taller1.Src.Dtos
 
         public required string Email { get; set; }
 
-        public required string Thelephone { get; set; }
+        public required string telephone { get; set; }
 
         public string? Street { get; set; }
 

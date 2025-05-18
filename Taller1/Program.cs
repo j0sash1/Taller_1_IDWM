@@ -29,6 +29,7 @@ try
     builder.Services.AddScoped<IOrderRepository, OrderRepository>();
     builder.Services.AddScoped<IOrderService, OrderService>();
     builder.Services.AddScoped<IUserService, UserService>();
+    builder.Services.AddScoped<IPhotoService, PhotoService>();
     builder.Services.AddScoped<UnitOfWork>();
     builder
         .Services.AddIdentity<User, IdentityRole>(opt =>

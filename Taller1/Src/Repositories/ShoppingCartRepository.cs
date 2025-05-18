@@ -22,7 +22,7 @@ namespace Taller1.Src.Repositories
         public async Task<ShoppingCart> GetByCartIdAsync(string cartId)
         {
             return await _context.ShoppingCarts
-                .Include(cart => cart.Items)  // Incluir los items asociados al carrito
+                .Include(cart => cart.Items)  
                 .FirstOrDefaultAsync(cart => cart.CartId == cartId);
         }
         public async Task AddAsync(ShoppingCart cart)
