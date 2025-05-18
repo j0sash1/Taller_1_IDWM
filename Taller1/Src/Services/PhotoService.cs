@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Taller1.Src.Interfaces;
-
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 
+using Taller1.Src.Interfaces;
+
 namespace Taller1.Src.Services
 {
-    public class PhotoService: IPhotoService
+    public class PhotoService : IPhotoService
     {
         private readonly Cloudinary _cloudinary;
 
