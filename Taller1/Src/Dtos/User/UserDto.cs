@@ -1,4 +1,4 @@
-namespace Taller1.Src.Dtos
+namespace Taller1.Src.Dtos.User
 {
     public class UserDto
     {
