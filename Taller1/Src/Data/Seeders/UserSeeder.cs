@@ -1,8 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 using Bogus;
 
 using Microsoft.AspNetCore.Identity;
 
 using Taller1.Src.Dtos;
+using Taller1.Src.Dtos.Auth;
 using Taller1.Src.Mappers;
 using Taller1.Src.Models;
 
@@ -17,7 +23,7 @@ namespace Taller1.Src.Data.Seeders
                 .RuleFor(u => u.Email, f => f.Internet.Email())
                 .RuleFor(u => u.Password, f => "User" + f.Random.Number(1000, 9999).ToString())
                 .RuleFor(u => u.LastName, f => f.Person.LastName)
-                .RuleFor(u => u.telephone, f => f.Phone.PhoneNumber())
+                .RuleFor(u => u.Telephone, f => f.Phone.PhoneNumber())
                 .RuleFor(u => u.ConfirmPassword, (f, u) => u.Password)
                 .RuleFor(u => u.Street, f => f.Address.StreetName())
                 .RuleFor(u => u.Number, f => f.Address.BuildingNumber())
@@ -53,6 +59,7 @@ namespace Taller1.Src.Data.Seeders
             if (existingAdmin == null)
             {
                 var result = await userManager.CreateAsync(admin, "Pa$$word2025");
+
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, "Admin");

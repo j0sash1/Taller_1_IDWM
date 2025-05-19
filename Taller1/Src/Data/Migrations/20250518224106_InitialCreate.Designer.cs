@@ -11,7 +11,7 @@ using Taller1.Src.Data;
 namespace Taller1.Src.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250518045139_InitialCreate")]
+    [Migration("20250518224106_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -168,12 +168,11 @@ namespace Taller1.Src.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("ShippingAddressId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -187,6 +186,8 @@ namespace Taller1.Src.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ShippingAddressId");
 
                     b.HasIndex("UserId");
 
@@ -219,7 +220,7 @@ namespace Taller1.Src.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Taller1.Src.Models.Product", b =>
@@ -236,15 +237,24 @@ namespace Taller1.Src.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Condition")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PublicId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Stock")
@@ -293,7 +303,7 @@ namespace Taller1.Src.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("ShippingAddresses");
+                    b.ToTable("ShippingAddres");
                 });
 
             modelBuilder.Entity("Taller1.Src.Models.ShoppingCart", b =>
@@ -345,6 +355,9 @@ namespace Taller1.Src.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateOnly?>("BirthDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -479,11 +492,19 @@ namespace Taller1.Src.Data.Migrations
 
             modelBuilder.Entity("Taller1.Src.Models.Order", b =>
                 {
+                    b.HasOne("Taller1.Src.Models.ShippingAddres", "ShippingAddress")
+                        .WithMany()
+                        .HasForeignKey("ShippingAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Taller1.Src.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ShippingAddress");
 
                     b.Navigation("User");
                 });

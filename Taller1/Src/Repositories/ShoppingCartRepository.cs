@@ -12,34 +12,33 @@ using Taller1.Src.Models;
 
 namespace Taller1.Src.Repositories
 {
-    public class ShoppingCartRepository : IShoppingCartRepository
+    public class ShoppingCartRepository(StoreContext context) : IShoppingCartRepository
     {
-        private readonly StoreContext _context;
-        public ShoppingCartRepository(StoreContext context)
-        {
-            _context = context;
-        }
-        public async Task<ShoppingCart> GetByCartIdAsync(string cartId)
+        private readonly StoreContext _context = context;
+
+        public async Task<ShoppingCart?> GetShoppingCartAsync(string cartId)
         {
             return await _context.ShoppingCarts
-                .Include(cart => cart.Items)
-                .FirstOrDefaultAsync(cart => cart.CartId == cartId);
+                .Include(x => x.Items)
+                .ThenInclude(i => i.Product)
+                .FirstOrDefaultAsync(x => x.CartId == cartId);
         }
-        public async Task AddAsync(ShoppingCart cart)
+
+        public ShoppingCart CreateShoppingCart(string cartId)
         {
-            await _context.ShoppingCarts.AddAsync(cart);
+            var shoppingCart = new ShoppingCart { CartId = cartId };
+            _context.ShoppingCarts.Add(shoppingCart);
+            return shoppingCart;
         }
-        public async Task UpdateAsync(ShoppingCart cart)
+
+        public void UpdateShoppingCart(ShoppingCart shoppingCart)
         {
-            _context.ShoppingCarts.Update(cart);
+            _context.ShoppingCarts.Update(shoppingCart);
         }
-        public async Task RemoveAsync(string cartId)
+
+        public void DeleteShoppingCart(ShoppingCart shoppingCart)
         {
-            var cart = await _context.ShoppingCarts.FirstOrDefaultAsync(c => c.CartId == cartId);
-            if (cart != null)
-            {
-                _context.ShoppingCarts.Remove(cart);
-            }
+            _context.ShoppingCarts.Remove(shoppingCart);
         }
     }
 }
