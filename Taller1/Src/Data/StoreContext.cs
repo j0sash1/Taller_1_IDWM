@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +14,11 @@ namespace Taller1.Src.Data
     public class StoreContext(DbContextOptions<StoreContext> options) : IdentityDbContext<User>(options)
     {
         public required DbSet<Product> Products { get; set; }
-        public required DbSet<ShippingAddres> ShippingAddresses { get; set; }
+        public required DbSet<ShippingAddres> ShippingAddres { get; set; }
         public required DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public required DbSet<Order> Orders { get; set; }
-
+        public required DbSet<OrderItem> OrderItems { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

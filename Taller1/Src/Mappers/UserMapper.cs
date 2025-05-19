@@ -1,5 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 using Taller1.Src.Dtos;
 using Taller1.Src.Models;
+using Taller1.Src.Dtos.Auth;
+using Taller1.Src.Dtos.User;
 
 namespace Taller1.Src.Mappers
 {
@@ -12,8 +19,8 @@ namespace Taller1.Src.Mappers
                 Email = dto.Email,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
-                PhoneNumber = dto.telephone,
-                Telephone = dto.telephone,
+                PhoneNumber = dto.Telephone,
+                Telephone = dto.Telephone,
                 RegisteredAt = DateTime.UtcNow,
                 IsActive = true,
                 ShippingAddres = new ShippingAddres
@@ -31,7 +38,7 @@ namespace Taller1.Src.Mappers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email ?? string.Empty,
-                telephone = user.PhoneNumber ?? string.Empty,
+                Telephone = user.PhoneNumber ?? string.Empty,
                 Street = user.ShippingAddres?.Street,
                 Number = user.ShippingAddres?.Number,
                 Commune = user.ShippingAddres?.Commune,
@@ -41,5 +48,40 @@ namespace Taller1.Src.Mappers
                 LastAccess = user.LastAccess,
                 IsActive = user.IsActive
             };
+        public static AuthenticatedUserDto UserToAuthenticatedDto(User user, string token) =>
+            new()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email ?? string.Empty,
+
+                Token = token,
+
+
+            };
+        public static NewUserDto UserToNewUserDto(User user) =>
+            new()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email ?? string.Empty
+            };
+        public static void UpdateUserFromDto(User user, UpdateProfileDto dto)
+        {
+            if (dto.FirstName is not null)
+                user.FirstName = dto.FirstName;
+
+            if (dto.LastName is not null)
+                user.LastName = dto.LastName;
+
+            if (dto.Email is not null)
+                user.Email = dto.Email;
+
+            if (dto.Phone is not null)
+                user.Telephone = dto.Phone;
+
+            if (dto.BirthDate.HasValue)
+                user.BirthDate = dto.BirthDate.Value;
+        }
     }
 }

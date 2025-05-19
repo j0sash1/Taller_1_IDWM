@@ -5,23 +5,27 @@ using System.Threading.Tasks;
 
 using Taller1.Src.Dtos;
 using Taller1.Src.Models;
+using Taller1.Src.Dtos.Shopping;
 
 namespace Taller1.Src.Mappers
 {
     public static class ShoppingCartMapper
     {
-        public static ShoppingCartDto ToDto(ShoppingCart cart)
+        public static ShoppingCartDto ToDto(this ShoppingCart shoppingCart)
         {
             return new ShoppingCartDto
             {
-                CartId = cart.CartId,
-                Items = cart.Items.Select(item => new ShoppingItemDTo
+                ShoppingCartId = shoppingCart.CartId,
+                Items = [.. shoppingCart.Items.Select(x => new ShoppingItemDTo
                 {
-                    ProductId = item.ProductId,
-                    Quantity = item.Quantity,
-                    ProductName = item.Product.Name,
-                    Price = item.Product.Price
-                }).ToList()
+                    ProductId = x.ProductId,
+                    Name = x.Product.Name,
+                    Price = x.Product.Price,
+                    PictureUrl = x.Product.Urls?.FirstOrDefault() ?? string.Empty,
+                    Brand = x.Product.Brand,
+                    Category = x.Product.Category,
+                    Quantity = x.Quantity
+                })]
             };
         }
     }

@@ -28,15 +28,15 @@ namespace Taller1.Src.Controllers
             if (address == null)
                 return BadRequest(new ApiResponse<string>(false, "No tienes una dirección registrada. Por favor agrégala antes de comprar."));
 
-            var basketId = Request.Cookies["basketId"];
-            if (string.IsNullOrEmpty(basketId))
+            var cartId = Request.Cookies["cartId"];
+            if (string.IsNullOrEmpty(cartId))
                 return BadRequest(new ApiResponse<string>(false, "No se encontró el carrito"));
 
-            var basket = await _unitOfWork.BasketRepository.GetBasketAsync(basketId);
-            if (basket == null || !basket.Items.Any())
+            var shoppingCart = await _unitOfWork.ShoppingCartRepository.GetShoppingCartAsync(cartId);
+            if (shoppingCart == null || !shoppingCart.Items.Any())
                 return BadRequest(new ApiResponse<string>(false, "El carrito está vacío"));
 
-            var order = OrderMapper.FromBasket(basket, userId, address.Id);
+            var order = OrderMapper.FromShoppingCart(shoppingCart, userId, address.Id);
 
             // Reducir el stock
             foreach (var item in order.Items)
@@ -54,7 +54,7 @@ namespace Taller1.Src.Controllers
             }
 
             await _unitOfWork.OrderRepository.CreateOrderAsync(order);
-            _unitOfWork.BasketRepository.DeleteBasket(basket);
+            _unitOfWork.ShoppingCartRepository.DeleteShoppingCart(shoppingCart);
             await _unitOfWork.SaveChangeAsync();
 
 

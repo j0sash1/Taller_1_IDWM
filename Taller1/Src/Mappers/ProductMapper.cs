@@ -8,37 +8,20 @@ using Taller1.Src.Models;
 
 namespace Taller1.Src.Mappers
 {
-    public class ProductMapper
+    public static class ProductMapper
     {
-        public static ProductResponseDto ToProductResponseDto(Product product)
-        {
-            return new ProductResponseDto
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                Category = product.Category,
-                Urls = product.Urls,
-                Stock = product.Stock,
-                Brand = product.Brand
-            };
-        }
-        public static List<ProductResponseDto> ToProductResponseDtoList(IEnumerable<Product> products)
-        {
-            return products.Select(ToProductResponseDto).ToList();
-        }
-        public static Product FromCreateDtoToProduct(ProductDto dto)
+        public static Product FromCreateDto(ProductDto dto, List<string> urls, string? publicId = null)
         {
             return new Product
             {
                 Name = dto.Name,
                 Description = dto.Description,
                 Price = dto.Price,
-                Category = dto.Category,
-                Urls = dto.Urls,
                 Stock = dto.Stock,
-                Brand = dto.Brand
+                Brand = dto.Brand,
+                Category = dto.Category,
+                Urls = urls,
+                PublicId = publicId
             };
         }
     }

@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Identity;
 
 using Taller1.Src.Interfaces;
@@ -10,19 +15,20 @@ namespace Taller1.Src.Data
         IProductRepository productRepository,
         IUserRepository userRepository,
         IShoppingCartRepository shoppingCartRepository,
-        UserManager<User> userManager
+        IOrderRepository orderRepository,
+        IShippingAddressRepository ShippingAddressRepository
     )
     {
         private readonly StoreContext _context = context;
 
-        private readonly StoreContext _context = context;
         public IOrderRepository OrderRepository { get; set; } = orderRepository;
         public IProductRepository ProductRepository { get; set; } = productRepository;
         public IUserRepository UserRepository { get; set; } = userRepository;
         public IShoppingCartRepository ShoppingCartRepository { get; set; } = shoppingCartRepository;
-        public async Task SaveChangeAsync()
+        public IShippingAddressRepository ShippingAddressRepository { get; set; } = ShippingAddressRepository;
+        public async Task<int> SaveChangeAsync()
         {
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
     }
 }

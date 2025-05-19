@@ -11,6 +11,7 @@ using Taller1.Src.Dtos;
 using Taller1.Src.Helpers;
 using Taller1.Src.Mappers;
 using Taller1.Src.Models;
+using Taller1.Src.Dtos.Shopping;
 
 namespace Taller1.Src.Controllers
 {
@@ -20,29 +21,29 @@ namespace Taller1.Src.Controllers
         private readonly UnitOfWork _unitOfWork = unitOfWork;
         [HttpGet]
         //ShoppingCartDto crear y usar metodo get
-        public async Task<ActionResult<ApiResponse<BasketDto>>> GetBasket()
+        public async Task<ActionResult<ApiResponse<ShoppingCartDto>>> GetShoppingCart()
         {
-            var basket = await RetrieveBasket();
-            if (basket == null)
+            var shoppingCart = await RetrieveShoppingCart();
+            if (shoppingCart == null)
                 return NoContent();
 
-            return Ok(new ApiResponse<BasketDto>(
+            return Ok(new ApiResponse<ShoppingCartDto>(
                 true,
                 "Carrito obtenido correctamente",
-                basket.ToDto()
+                shoppingCart.ToDto()
             ));
         }
         [Authorize(Roles = "User")]
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<BasketDto>>> AddItemToBasket(int productId, int quantity)
+        public async Task<ActionResult<ApiResponse<ShoppingCartDto>>> AddItemToShoppingCart(int productId, int quantity)
         {
             _logger.LogWarning("Entrando a AddItemToBasket con productId: {ProductId}, quantity: {Quantity}", productId, quantity);
 
-            var basket = await RetrieveBasket();
+            var shoppingCart = await RetrieveShoppingCart();
 
-            if (basket == null)
+            if (shoppingCart == null)
             {
-                basket = CreateBasket();
+                shoppingCart = CreateShoppingCart();
                 await _unitOfWork.SaveChangeAsync();
             }
 
@@ -59,60 +60,60 @@ namespace Taller1.Src.Controllers
             if (product.Stock < quantity)
                 return BadRequest(new ApiResponse<string>(false, $"Solo hay {product.Stock} unidades disponibles de '{product.Name}'"));
 
-            basket.AddItem(product, quantity);
+            shoppingCart.AddItem(product, quantity);
 
             var changes = await _unitOfWork.SaveChangeAsync();
             var success = changes > 0;
 
             return success
-                ? CreatedAtAction(nameof(GetBasket), new ApiResponse<BasketDto>(true, "Producto añadido al carrito", basket.ToDto()))
+                ? CreatedAtAction(nameof(GetShoppingCart), new ApiResponse<ShoppingCartDto>(true, "Producto añadido al carrito", shoppingCart.ToDto()))
                 : BadRequest(new ApiResponse<string>(false, "Ocurrió un problema al actualizar el carrito"));
         }
 
         [Authorize(Roles = "User")]
         [HttpDelete]
-        public async Task<ActionResult<ApiResponse<BasketDto>>> RemoveItemFromBasket(int productId, int quantity)
+        public async Task<ActionResult<ApiResponse<ShoppingCartDto>>> RemoveItemFromShoppingCart(int productId, int quantity)
         {
-            var basket = await RetrieveBasket();
-            if (basket == null)
+            var shoppingCart = await RetrieveShoppingCart();
+            if (shoppingCart == null)
                 return BadRequest(new ApiResponse<string>(false, "Carrito no encontrado"));
 
-            basket.RemoveItem(productId, quantity);
+            shoppingCart.RemoveItem(productId, quantity);
 
             var success = await _unitOfWork.SaveChangeAsync() > 0;
 
             return success
-                ? Ok(new ApiResponse<BasketDto>(
+                ? Ok(new ApiResponse<ShoppingCartDto>(
                     true,
                     "Producto eliminado del carrito",
-                    basket.ToDto()
+                    shoppingCart.ToDto()
                 ))
                 : BadRequest(new ApiResponse<string>(false, "Error al actualizar el carrito"));
         }
 
-        private async Task<Basket?> RetrieveBasket()
+        private async Task<ShoppingCart?> RetrieveShoppingCart()
         {
-            var basketId = Request.Cookies["basketId"];
-            _logger.LogWarning("BasketId recibido desde cookie: {BasketId}", basketId);
+            var cartId = Request.Cookies["cartId"];
+            _logger.LogWarning("CartId recibido desde cookie: {CartId}", cartId);
 
-            return string.IsNullOrEmpty(basketId)
+            return string.IsNullOrEmpty(cartId)
                 ? null
-                : await _unitOfWork.BasketRepository.GetBasketAsync(basketId);
+                : await _unitOfWork.ShoppingCartRepository.GetShoppingCartAsync(cartId);
         }
 
-        private Basket CreateBasket()
+        private ShoppingCart CreateShoppingCart()
         {
-            var basketId = Guid.NewGuid().ToString();
+            var cartId = Guid.NewGuid().ToString();
             var cookieOptions = new CookieOptions
             {
                 IsEssential = true,
                 Expires = DateTime.UtcNow.AddDays(30),
             };
 
-            Response.Cookies.Append("basketId", basketId, cookieOptions);
-            _logger.LogWarning("Nuevo basket creado con ID: {BasketId}", basketId);
+            Response.Cookies.Append("cartId", cartId, cookieOptions);
+            _logger.LogWarning("Nuevo ShoppingCart creado con ID: {CartId}", cartId);
 
-            return _unitOfWork.BasketRepository.CreateBasket(basketId);
+            return _unitOfWork.ShoppingCartRepository.CreateShoppingCart(cartId);
         }
     }
 }

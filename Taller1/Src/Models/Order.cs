@@ -10,10 +10,16 @@ namespace Taller1.Src.Models
         public int Id { get; set; }
         public string UserId { get; set; } = string.Empty;
         public User User { get; set; } = null!;
-        public string Address { get; set; } = string.Empty;
+        
+        // NUEVO: FK a ShippingAddress
+        public int ShippingAddressId { get; set; }
+        public ShippingAddres ShippingAddress { get; set; } = null!;
+
         public DateTime OrderDate { get; set; } = DateTime.UtcNow;
         public string Status { get; set; } = "Creado";
+
         public decimal Total { get; set; }
+
         public List<OrderItem> Items { get; set; } = new();
     }
 }

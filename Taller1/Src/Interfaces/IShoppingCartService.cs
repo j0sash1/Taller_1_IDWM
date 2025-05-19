@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Taller1.Src.Dtos;
-
+using Taller1.Src.Dtos.Shopping;
 
 namespace Taller1.Src.Interfaces
 {

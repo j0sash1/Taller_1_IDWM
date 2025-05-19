@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Taller1.RequestHelpers;
+using Taller1.Src.RequestHelpers;
 using Taller1.Src.Data;
 using Taller1.Src.Dtos;
 using Taller1.Src.Dtos.ShippingAddress;
@@ -178,7 +178,7 @@ namespace Taller1.Src.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId is null)
-            return Unauthorized(new ApiResponse<string>(false, "Usuario no autenticado"));
+                return Unauthorized(new ApiResponse<string>(false, "Usuario no autenticado"));
 
             var user = await _unitOfWork.UserRepository.GetUserByIdAsync(userId);
             if (user == null)
