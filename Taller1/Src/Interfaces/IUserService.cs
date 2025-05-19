@@ -1,4 +1,4 @@
-using Taller1.Src.Dtos;
+using Taller1.Src.Dtos.User;
 using Taller1.Src.Models;
 
 namespace Taller1.Src.Interfaces
