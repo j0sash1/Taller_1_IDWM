@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
+using Serilog;
+
 using Taller1.Src.Data;
-using Taller1.Src.Interfaces;
 using Taller1.Src.Helpers;
+using Taller1.Src.Interfaces;
 using Taller1.Src.Models;
 using Taller1.Src.Repositories;
 using Taller1.Src.Services;
-
-using Serilog;
 Log.Logger = new LoggerConfiguration().CreateLogger();
 
 try
@@ -78,7 +78,7 @@ try
                 ),
                 RoleClaimType = ClaimTypes.Role,
             };
-        }); 
+        });
     builder.Services.AddDbContext<StoreContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
     );

@@ -6,7 +6,7 @@ using Taller1.Src.Models;
 
 namespace Taller1.Src.Repositories
 {
-    public class ProductRepository: IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly StoreContext _context;
         private readonly ILogger<ProductRepository> _logger;

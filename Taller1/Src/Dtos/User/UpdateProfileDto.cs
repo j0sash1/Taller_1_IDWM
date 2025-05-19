@@ -11,6 +11,6 @@ namespace Taller1.Src.Dtos.User
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public DateOnly? BirthDate { get; set; }
-        public string? Phone { get; set; } 
+        public string? Phone { get; set; }
     }
 }

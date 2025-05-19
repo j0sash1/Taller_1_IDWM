@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Taller1.Src.RequestHelpers;
 using Taller1.Src.Data;
 using Taller1.Src.Dtos;
 using Taller1.Src.Dtos.ShippingAddress;
@@ -17,6 +16,7 @@ using Taller1.Src.Extensions;
 using Taller1.Src.Helpers;
 using Taller1.Src.Mappers;
 using Taller1.Src.Models;
+using Taller1.Src.RequestHelpers;
 
 namespace Taller1.Src.Controllers
 {

@@ -10,7 +10,7 @@ namespace Taller1.Src.Models
         public int Id { get; set; }
         public string UserId { get; set; } = string.Empty;
         public User User { get; set; } = null!;
-        
+
         // NUEVO: FK a ShippingAddress
         public int ShippingAddressId { get; set; }
         public ShippingAddres ShippingAddress { get; set; } = null!;

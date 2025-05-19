@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Taller1.Src.RequestHelpers
 {
-    public class ProductParams: PaginationParams
+    public class ProductParams : PaginationParams
     {
         public string? OrderBy { get; set; }
         public string? Search { get; set; }           // <-- requerida por .Search()

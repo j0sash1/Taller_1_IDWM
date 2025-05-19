@@ -15,7 +15,7 @@ namespace Taller1.Src.Repositories
     public class ShoppingCartRepository(StoreContext context) : IShoppingCartRepository
     {
         private readonly StoreContext _context = context;
-        
+
         public async Task<ShoppingCart?> GetShoppingCartAsync(string cartId)
         {
             return await _context.ShoppingCarts

@@ -17,7 +17,7 @@ namespace Taller1.Src.Models
         public bool IsActive { get; set; } = true;
         public string? DeactivationReason { get; set; }
         public DateOnly? BirthDate { get; set; }
-        
+
         public ShippingAddres? ShippingAddres { get; set; }
     }
 }

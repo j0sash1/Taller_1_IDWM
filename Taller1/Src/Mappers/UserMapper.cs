@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Taller1.Src.Dtos;
-using Taller1.Src.Models;
 using Taller1.Src.Dtos.Auth;
 using Taller1.Src.Dtos.User;
+using Taller1.Src.Models;
 
 namespace Taller1.Src.Mappers
 {

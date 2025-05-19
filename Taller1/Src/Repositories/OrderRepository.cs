@@ -15,7 +15,7 @@ namespace Taller1.Src.Repositories
     public class OrderRepository(StoreContext context) : IOrderRepository
     {
         private readonly StoreContext _context = context;
-        
+
         public async Task CreateOrderAsync(Order order)
         {
             await _context.Orders.AddAsync(order);

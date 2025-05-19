@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+
 using Taller1.Src.Data;
 using Taller1.Src.Interfaces;
 using Taller1.Src.Models;
-
-using Microsoft.EntityFrameworkCore;
 
 namespace Taller1.Src.Repositories
 {
